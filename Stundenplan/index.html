@@ -40,6 +40,13 @@
                 <div id="beruf_Dropdown">
                     <label>Beruf auswählen</label>
                     <select name="beruf" id="beruf" class="form-control">
+                        <option>Bitte auswählen</option>
+                    </select>
+                </div>
+                <div id="klasse_Dropdown" style="display: none;">
+                    <label">Klasse</label>
+                    <select name="klassen" id="klassen" class="form-control">
+                        <option>Bitte auswählen</option>
                     </select>
                 </div>
                 <br>
@@ -64,8 +71,12 @@
     <script type="text/javascript">
         $(document).ready(function()
         {
-            LoadBerufe();
+            GetBerufe();
         })
+        // Klassen laden, wenn Beruf geändert wurde
+        $('#beruf').on('change', function(){
+            GetKlassen();
+        });
     </script>
 </body>
 

@@ -1,43 +1,44 @@
 /**
  * Created by vmuser on 30.05.2016.
  */
-function LoadBerufe()
+
+//Funktion um die Berufe welches durch das JSON objekt geliefert werden in die Dropdown zu schreiben
+function GetBerufe()
 {
-    var beruf_id, beruf_name;
-    //Frage nach den Daten danach Funktion mit den Antworten
+    //Frage nach den Berufen danach Funktion mit den Antworten
     $.getJSON('http://home.gibm.ch/interfaces/133/berufe.php',function(antwort){
         //Foreach mit der antwort
-        $.each(antwort,function(beruf_id,berufName)
+        $.each(antwort,function(beruf_id,beruf)
         {
-            beruf_id = berufName['beruf_id']
-            beruf_name = berufName['beruf_name']
-
-            // Berufe werden als option an das select mit der id beruf
+            // Berufe werden als option an das select mit der value als id und text als name
             $('#beruf').append($('<option/>',{
-                value: beruf_id,
-                text : beruf_name
+                value: beruf['beruf_id'],
+                text : beruf['beruf_name']
             }));
         });
     });
 }
 
-function LoadKlassen()
+//Funktion um die Klassen welches durch das JSON objekt geliefert werden in die Dropdown zu schreiben
+function GetKlassen()
 {
-    var beruf_id, beruf_name;
-    //Frage nach den Daten danach Funktion mit den Antworten
-    $.getJSON('http://home.gibm.ch/interfaces/133/berufe.php',function(antwort){
-        //Foreach mit der antwort
-        $.each(antwort,function(beruf_id,berufName)
-        {
-            beruf_id = berufName['beruf_id']
-            beruf_name = berufName['beruf_name']
-
-            // Option im Select anhängen
-            $('#beruf').append($('<option/>',{
-                value: beruf_id,
-                text : beruf_name
-            }));
+    //Beruf Id anhand von der ausgewählten Beruf nehmen und der Variable zuweisen
+    var berufId = $('#beruf').val();
+    //Prüfen ob BerufId leer ist
+    if (berufId >= 0 && berufId != "")
+    {
+        //Frage nach den Klassen an hand des ausgewählten Berufes welches als value dessen Id hat danach Funktion mit den Antworten
+        $.getJSON('http://home.gibm.ch/interfaces/133/klassen.php','beruf_id='+berufId,function(antwort){
+            //Foreach mit der antwort
+            $.each(antwort,function(klassenId,klasse)
+            {
+                // Klassen werden als option an das select mit der value als id und text als name
+                $('#klassen').append($('<option/>',{
+                    value: klasse['klasse_id'],
+                    text : klasse['klasse_longname']
+                }));
+            });
+            $('#klasse_Dropdown').show();
         });
-        $('#beruf_loading').hide();
-    });
+    }
 }
