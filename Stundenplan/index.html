@@ -44,10 +44,16 @@
                     </select>
                 </div>
                 <div id="klasse_Dropdown" style="display: none;">
-                    <label">Klasse</label>
+                    <label>Klasse</label>
                     <select name="klassen" id="klassen" class="form-control">
                         <option>Bitte auswählen</option>
                     </select>
+                </div>
+
+                <div id="kalender_tafel">
+                    <label>Kalender</label>
+                    <tb id="tabelle">
+                    </tb>
                 </div>
                 <br>
                 <ul class="list-unstyled">
@@ -75,8 +81,45 @@
         })
         // Klassen laden, wenn Beruf geändert wurde
         $('#beruf').on('change', function(){
+            //Elemente in der Klassen dropdown werden gelöscht
+            var select = document.getElementById("klassen");
+            var option = select.firstChild;
+            while (option)
+            {
+                select.removeChild(option);
+                option = select.firstChild;
+            }
+            // Methode um Dropdown klassen zu füllen
             GetKlassen();
         });
+
+        // Klassen laden, wenn Beruf geändert wurde
+        $('#klassen').on('change', function(){
+            // Methode um Dropdown klassen zu füllen
+            GetKalender();
+        });
+        var elem = document.getElementById('ueber');
+        elem.addEventListener('click', ueberschriftEinfuegen);
+        var elem = document.getElementById('zeile');
+        elem.addEventListener('click', zeileEinfuegen);
+
+        function ueberschriftEinfuegen() {
+            var tabelle = document.getElementById('tabelle');
+            // schreibe Tabellenüberschrift
+            var caption = tabelle.createCaption();
+            caption.innerHTML = 'Überschrift';
+        }
+
+        function zeileEinfuegen() {
+            var tabelle = document.getElementById('tabelle');
+            // schreibe Tabellenzeile
+            var Reihe = tabelle.insertRow(0);
+            for (var i = 0; i <= 6; i++) {
+                var Inhalt = 'Zelle ' + (i + 1);
+                var Zelle = Reihe.insertCell();
+                Zelle.innerHTML = Inhalt;
+            }
+        }
     </script>
 </body>
 

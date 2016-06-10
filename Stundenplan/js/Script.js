@@ -8,6 +8,7 @@ function GetBerufe()
     //Frage nach den Berufen danach Funktion mit den Antworten
     $.getJSON('http://home.gibm.ch/interfaces/133/berufe.php',function(antwort){
         //Foreach mit der antwort
+
         $.each(antwort,function(beruf_id,beruf)
         {
             // Berufe werden als option an das select mit der value als id und text als name
@@ -29,6 +30,12 @@ function GetKlassen()
     {
         //Frage nach den Klassen an hand des ausgewählten Berufes welches als value dessen Id hat danach Funktion mit den Antworten
         $.getJSON('http://home.gibm.ch/interfaces/133/klassen.php','beruf_id='+berufId,function(antwort){
+            //Bitte wählen an klassen anhängen am anfang
+            $('#klassen').append($('<option>',
+            {
+                text : "Bitte wählen"
+            }));
+
             //Foreach mit der antwort
             $.each(antwort,function(klassenId,klasse)
             {
@@ -41,4 +48,12 @@ function GetKlassen()
             $('#klasse_Dropdown').show();
         });
     }
+}
+
+function GetKalender()
+{
+    var klassenId = $('#klassen').val();
+    $.getJSON('http://home.gibm.ch/interfaces/133/tafel.php','klasse_id='+klassenId,function(antwort){
+
+    });
 }
