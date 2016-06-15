@@ -13,6 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/fullcalendar.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
@@ -49,11 +50,9 @@
                         <option>Bitte auswählen</option>
                     </select>
                 </div>
-
-                <div id="kalender_tafel">
-                    <label>Kalender</label>
-                    <tb id="tabelle">
-                    </tb>
+                <br>
+                <div id="kalender_tafel" class="container">
+                    <br>
                 </div>
                 <br>
                 <ul class="list-unstyled">
@@ -73,11 +72,14 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
     <script src="js/Script.js"></script>
     <script type="text/javascript">
         $(document).ready(function()
         {
-            GetBerufe();
+            //Methode um Dropdown Berufe zufüllen
+            SetBerufe();
         })
         // Klassen laden, wenn Beruf geändert wurde
         $('#beruf').on('change', function(){
@@ -90,36 +92,14 @@
                 option = select.firstChild;
             }
             // Methode um Dropdown klassen zu füllen
-            GetKlassen();
+            SetKlassen();
         });
 
-        // Klassen laden, wenn Beruf geändert wurde
+        // Kalender laden, wenn Klasse geändert wurde
         $('#klassen').on('change', function(){
-            // Methode um Dropdown klassen zu füllen
-            GetKalender();
+            // Methode um Kalender mit Terminen zu füllen
+            SetKalender();
         });
-        var elem = document.getElementById('ueber');
-        elem.addEventListener('click', ueberschriftEinfuegen);
-        var elem = document.getElementById('zeile');
-        elem.addEventListener('click', zeileEinfuegen);
-
-        function ueberschriftEinfuegen() {
-            var tabelle = document.getElementById('tabelle');
-            // schreibe Tabellenüberschrift
-            var caption = tabelle.createCaption();
-            caption.innerHTML = 'Überschrift';
-        }
-
-        function zeileEinfuegen() {
-            var tabelle = document.getElementById('tabelle');
-            // schreibe Tabellenzeile
-            var Reihe = tabelle.insertRow(0);
-            for (var i = 0; i <= 6; i++) {
-                var Inhalt = 'Zelle ' + (i + 1);
-                var Zelle = Reihe.insertCell();
-                Zelle.innerHTML = Inhalt;
-            }
-        }
     </script>
 </body>
 
