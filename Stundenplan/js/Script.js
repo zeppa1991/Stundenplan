@@ -48,7 +48,7 @@ function SetKlassen()
                     text : klasse['klasse_longname']
                 }));
             });
-            $('#klasse_Dropdown').show();
+            $('#klasse_Dropdown').fadeIn();
         });
     }
 }
@@ -112,6 +112,7 @@ function SetKalender()
         $('#kalender_tafel').fullCalendar('removeEventSource',events);
         events = [];
     });
+    $('#kalender_tafel').fadeIn();
 }
 
 //Funktion um die aktuelle Kalender woche zu ermitteln
